@@ -14,9 +14,7 @@ import io.pivotal.userlogin.UserLogin;
 import io.pivotal.userlogin.UserLoginCheckStatus;
 import io.pivotal.userlogin.UserLoginSetUpResponse;
 import io.pivotal.userlogin.UserLoginSetupRequest;
-import io.pivotal.userlogin.UserLoginSetupRequestV1;
 import io.pivotal.userlogin.UserLoginSetupResult;
-import io.pivotal.userlogin.UserLoginV1;
 
 @SpringBootApplication
 public class LoginClientApplication {
@@ -26,7 +24,7 @@ public class LoginClientApplication {
 	private static final String USER_LOGIN_JSON =
 			"application/json";
 	private static final String USER_LOGIN_URL = "http://localhost:6565/userlogin";
-	private static final String USER_LOGIN_URL_V1 = "http://localhost:6565/userlogin/v1";
+	//private static final String USER_LOGIN_URL_V1 = "http://localhost:6565/userlogin/v1";
 
 
 	
@@ -72,38 +70,38 @@ public class LoginClientApplication {
 	}
 	
 	
-public UserLoginSetupResult userLoginSetupAppV1(UserLoginV1 userLoginV1) {
-		
-		UserLoginSetupRequestV1 requestV1 =
-				new UserLoginSetupRequestV1(userLoginV1);
-
-		UserLoginSetUpResponse response =
-				sendRequestToUserLoginServiceV1(requestV1);
-
-		return buildResponseFromUserLoginResultV1(response);
-	}
-
-	private UserLoginSetUpResponse sendRequestToUserLoginServiceV1(UserLoginSetupRequestV1 requestV1) {
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.add(HttpHeaders.CONTENT_TYPE, USER_LOGIN_JSON);
-
-		// tag::client_call_server[]
-		ResponseEntity<UserLoginSetUpResponse> response = restTemplate.exchange(USER_LOGIN_URL_V1, HttpMethod.PUT, new HttpEntity<>(requestV1,httpHeaders),UserLoginSetUpResponse.class);
-		// end::client_call_server[]
-		return response.getBody();
-	}
-
-	private UserLoginSetupResult buildResponseFromUserLoginResultV1(UserLoginSetUpResponse response) {
-		UserLoginCheckStatus applicationStatus = null;
-		if (UserLoginCheckStatus.OK.equals(response.getUserLoginSetUpStatus())) {
-			applicationStatus = UserLoginCheckStatus.OK;
-		} 
-		else {
-			applicationStatus = UserLoginCheckStatus.NOT_OKAY;
-		}
-
-		return new UserLoginSetupResult(applicationStatus, response.getRejectionReason());
-	}
+//public UserLoginSetupResult userLoginSetupAppV1(UserLoginV1 userLoginV1) {
+//		
+//		UserLoginSetupRequestV1 requestV1 =
+//				new UserLoginSetupRequestV1(userLoginV1);
+//
+//		UserLoginSetUpResponse response =
+//				sendRequestToUserLoginServiceV1(requestV1);
+//
+//		return buildResponseFromUserLoginResultV1(response);
+//	}
+//
+//	private UserLoginSetUpResponse sendRequestToUserLoginServiceV1(UserLoginSetupRequestV1 requestV1) {
+//		HttpHeaders httpHeaders = new HttpHeaders();
+//		httpHeaders.add(HttpHeaders.CONTENT_TYPE, USER_LOGIN_JSON);
+//
+//		// tag::client_call_server[]
+//		ResponseEntity<UserLoginSetUpResponse> response = restTemplate.exchange(USER_LOGIN_URL_V1, HttpMethod.PUT, new HttpEntity<>(requestV1,httpHeaders),UserLoginSetUpResponse.class);
+//		// end::client_call_server[]
+//		return response.getBody();
+//	}
+//
+//	private UserLoginSetupResult buildResponseFromUserLoginResultV1(UserLoginSetUpResponse response) {
+//		UserLoginCheckStatus applicationStatus = null;
+//		if (UserLoginCheckStatus.OK.equals(response.getUserLoginSetUpStatus())) {
+//			applicationStatus = UserLoginCheckStatus.OK;
+//		} 
+//		else {
+//			applicationStatus = UserLoginCheckStatus.NOT_OKAY;
+//		}
+//
+//		return new UserLoginSetupResult(applicationStatus, response.getRejectionReason());
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(LoginClientApplication.class, args);

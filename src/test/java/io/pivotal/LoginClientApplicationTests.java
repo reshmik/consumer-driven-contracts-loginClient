@@ -13,13 +13,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import io.pivotal.userlogin.UserLogin;
 import io.pivotal.userlogin.UserLoginCheckStatus;
 import io.pivotal.userlogin.UserLoginSetupResult;
-import io.pivotal.userlogin.UserLoginV1;
+//import io.pivotal.userlogin.UserLoginV1;
 
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@AutoConfigureStubRunner(ids = {"io.pivotal:loginsetupserver:+:stubs:6565"}, workOffline = true)
+@AutoConfigureStubRunner(ids = {"io.pivotal:loginservice:+:stubs:6565"}, workOffline = true)
 @DirtiesContext
 public class LoginClientApplicationTests {
 
@@ -41,7 +41,7 @@ public class LoginClientApplicationTests {
 	@Test
 	public void shouldSuccessfullySetPassword() {
 		// given:
-		UserLogin userlogin = new UserLogin("reshmi","123");
+		UserLogin userlogin = new UserLogin("springdays","123");
 	    // when:
 		UserLoginSetupResult userloginResult = loginSetUpClientApp.userLoginSetupApp(userlogin);
 		// then:
@@ -49,15 +49,15 @@ public class LoginClientApplicationTests {
 		 assertThat(userloginResult.getRejectionReason()).isEqualTo("NO_REASON");
 	}
 
-	@Test
-	public void shouldSuccessfullySetPasswordV1() {
-		// given:
-		UserLoginV1 userloginv1 = new UserLoginV1("cloudnativemeetup","123","123");
-	    // when:
-		UserLoginSetupResult userloginResultv1 = loginSetUpClientApp.userLoginSetupAppV1(userloginv1);
-		// then:
-		assertThat(userloginResultv1.getuserLoginCheckStatus()).isEqualTo(UserLoginCheckStatus.OK);
-		 assertThat(userloginResultv1.getRejectionReason()).isEqualTo("NO_REASON");
-	}
+//	@Test
+//	public void shouldSuccessfullySetPasswordV1() {
+//		// given:
+//		UserLoginV1 userloginv1 = new UserLoginV1("cloudnativemeetup","123","123");
+//	    // when:
+//		UserLoginSetupResult userloginResultv1 = loginSetUpClientApp.userLoginSetupAppV1(userloginv1);
+//		// then:
+//		assertThat(userloginResultv1.getuserLoginCheckStatus()).isEqualTo(UserLoginCheckStatus.OK);
+//		 assertThat(userloginResultv1.getRejectionReason()).isEqualTo("NO_REASON");
+//	}
 
 }
